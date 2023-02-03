@@ -1,6 +1,7 @@
 .slider-main{
     border: 1px solid gray;
     height: 100% ;
+    width: 100%;
 }
 
 .slider-list{
@@ -21,12 +22,28 @@
     background-color: #fafafa;
     word-break: break-all;   /* // change */
 }
-.slider-list li:hover{
+.ant-menu-item-selected{
     cursor: pointer;
     background-color:#e5d8f7;
-    color: #7E37D8;
+    color: #d2b9f3 !important;
+    background-color: #7E37D8 !important;
 }
-.active{
+.ant-menu-submenu-title{
+ color: #000;
+}
+.ant-menu-submenu-title{
+    color: unset !important;
+}
+
+/* .ant-menu-submenu-title{
+    color: #d2b9f3 !important;
+} */
+
+.slider-list li:active{
+    background-color: #7E37D8 !important;
+}
+
+/* .active{
     background-color: #7E37D8 !important;
     color: #fff !important;
-}
+} */
