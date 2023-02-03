@@ -1,61 +1,28 @@
 import "./Slider.css"
 import {
-    HomeOutlined,
-    UsergroupAddOutlined,
-    FormOutlined,
-    FileAddOutlined,
-    AppstoreOutlined,
-    ContainerOutlined,
-    MenuFoldOutlined,
-    PieChartOutlined,
-    DesktopOutlined,
-    MailOutlined,
-    MenuUnfoldOutlined
-} from "@ant-design/icons"
+    CaretUpOutlined,
+    CaretDownOutlined
 
-import { Button, Menu } from 'antd';
+} from "@ant-design/icons"
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee,
+import {
     faClipboard,
     faHouse,
-    faArchive ,
+    faArchive,
     faTasks,
+    faCartPlus,
+    faUsers
 } from '@fortawesome/free-solid-svg-icons'
-function getItem(label, key, icon, children, type) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        type,
-    };
-}
-const items = [
-    getItem('General', '1',<FontAwesomeIcon icon={faHouse} />),
-    getItem('Menu', 'sub1', <FontAwesomeIcon icon={faArchive} />, [
-        getItem('Option 5', '5'),
-        getItem('Option 6', '6'),
-        getItem('Option 7', '7'),
-        getItem('Option 8', '8'),
-    ]),
-    getItem('Orders', '2',<FontAwesomeIcon icon={faClipboard}   />),
-    getItem('Restaurants List', 'sub2',  <FontAwesomeIcon icon={faTasks}/>, [
-        getItem('Option 9', '9'),
-        getItem('Option 10', '10'),
-        getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-    ]),
-    getItem('Restaurants List', '3', <FontAwesomeIcon icon={faTasks} />),
-];
-
-
-
+import { render } from "@testing-library/react";
 
 function Appslider() {
     const navigate = useNavigate()
 
     const [collapsed, setCollapsed] = useState(false);
+    const [render, setrender] = useState(false);
+
     const toggleCollapsed = () => {
         setCollapsed(!collapsed);
     };
@@ -65,35 +32,102 @@ function Appslider() {
     const gohome = () => {
         navigate("/")
     }
+    const dropdown = () => {
+        setrender(!render)
+    }
     return (
         <div className="slider-main">
-            {/* <ul className="slider-list">
-                <li className="active" onClick={gohome}>
-                    <HomeOutlined /><br />
+            <div className="item-list">
+                <div className="items-arrange">
+                    <FontAwesomeIcon icon={faHouse} />
+                </div>
+                <div>
                     <span>General</span>
-                </li>
-                <li onClick={allusers}>
-                    <UsergroupAddOutlined />  <br />
+                </div>
+            </div>
+
+            <div className="item-list" onClick={dropdown} >
+                <div className="items-arrange">
+                    <FontAwesomeIcon icon={faArchive} />
+                </div>
+                <div>
+                    <span>Menus</span>
+                </div>
+                <div className="drop">
+                    {render ? <CaretDownOutlined /> : <CaretUpOutlined />}
+                </div>
+            </div>
+            {render &&
+                <div className="item-list-drop">
+                    <div>
+                        <span>menu1</span>
+                    </div>
+                    <div>
+                        <span>menu2</span>
+                    </div>
+                </div>
+            }
+
+            <div className="item-list">
+                <div className="items-arrange">
+                    <FontAwesomeIcon icon={faClipboard} />
+                </div>
+                <div >
+                    <span>Oders</span>
+                </div>
+            </div>
+
+            <div className="item-list">
+                <div className="items-arrange">
+                    <FontAwesomeIcon icon={faTasks} />
+                </div>
+                <div>
+                    <span>Restaurants List</span>
+                </div>
+            </div>
+
+            <div className="item-list">
+                <div className="items-arrange">
+                    <FontAwesomeIcon icon={faCartPlus} />
+                </div>
+                <div>
+                    <span>Add Product</span>
+                </div>
+            </div>
+            <div className="item-list">
+                <div className="items-arrange">
+                    <FontAwesomeIcon icon={faUsers}/>
+                </div>
+                <div>
                     <span>Users</span>
-                </li>
-                <li >
-                    <FormOutlined /><br />
-                    <span>Products</span>
-                </li>
-                <li >
-                    <FileAddOutlined /><br />
-                    <span>Add Products</span>
-                </li>
-            </ul> */}
-                <Menu className="collaps"
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['']}
-                    mode="inline"
-                    theme="light"
-                    items={items}
-                />
+                </div>
+            </div>
         </div>
     )
 }
 
 export default Appslider;
+
+
+{/* <ul className="slider-list">
+                <li className="active" onClick={gohome}>
+                    <HomeOutlined /><br />
+                    <span>General</span>
+                </li>
+                <li>
+                    <FormOutlined /><br />
+                    <span>Menu</span>
+                </li>
+                <li >
+                    <FontAwesomeIcon icon={faClipboard} /><br />
+                    <span>Orders</span>
+                </li>
+                <li >
+                    <FontAwesomeIcon icon={faTasks} /><br />
+                    <span>Restaurants List</span>
+                </li>
+                <li onClick={allusers}>
+                    <UsergroupAddOutlined />  <br />
+                    <span>Users</span>
+                </li>
+            </ul> */}
