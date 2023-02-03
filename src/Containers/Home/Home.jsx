@@ -2,6 +2,7 @@ import Appslider from "../../Compnents/Appslider/Slider";
 import Header from "../../Compnents/Header/Header";
 import "./Home.css"
 function Home() {
+   
     return (
         <>
             <div>

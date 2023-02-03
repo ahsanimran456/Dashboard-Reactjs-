@@ -19,13 +19,7 @@ import { render } from "@testing-library/react";
 
 function Appslider() {
     const navigate = useNavigate()
-
-    const [collapsed, setCollapsed] = useState(false);
     const [render, setrender] = useState(false);
-
-    const toggleCollapsed = () => {
-        setCollapsed(!collapsed);
-    };
     const allusers = () => {
         navigate("/users")
     }
@@ -37,7 +31,7 @@ function Appslider() {
     }
     return (
         <div className="slider-main">
-            <div className="item-list">
+            <div className="item-list"onClick={gohome}>
                 <div className="items-arrange">
                     <FontAwesomeIcon icon={faHouse} />
                 </div>
@@ -94,7 +88,7 @@ function Appslider() {
                     <span>Add Product</span>
                 </div>
             </div>
-            <div className="item-list">
+            <div className="item-list" onClick={allusers}>
                 <div className="items-arrange">
                     <FontAwesomeIcon icon={faUsers}/>
                 </div>
