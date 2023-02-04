@@ -12,10 +12,11 @@ import {
     faHouse,
     faArchive,
     faTasks,
+    faUsers,
     faCartPlus,
-    faUsers
+    faPlateUtensils,
 } from '@fortawesome/free-solid-svg-icons'
-import { render } from "@testing-library/react";
+
 
 function Appslider() {
     const navigate = useNavigate()
@@ -29,9 +30,15 @@ function Appslider() {
     const dropdown = () => {
         setrender(!render)
     }
+    const goAddmenulist = ()=>{
+        navigate("/addmenu")
+    }
+    const AllMenulist = ()=>{
+        navigate("/allmenulist")
+    }
     return (
         <div className="slider-main">
-            <div className="item-list"onClick={gohome}>
+            <div className="item-list" onClick={gohome}>
                 <div className="items-arrange">
                     <FontAwesomeIcon icon={faHouse} />
                 </div>
@@ -53,11 +60,12 @@ function Appslider() {
             </div>
             {render &&
                 <div className="item-list-drop">
-                    <div>
-                        <span>menu1</span>
+                    <div onClick={goAddmenulist}>
+
+                        <span>◍ Add New Menu</span>
                     </div>
-                    <div>
-                        <span>menu2</span>
+                    <div onClick={AllMenulist}>
+                        <span>◍ Menu List</span>
                     </div>
                 </div>
             }
@@ -90,7 +98,7 @@ function Appslider() {
             </div>
             <div className="item-list" onClick={allusers}>
                 <div className="items-arrange">
-                    <FontAwesomeIcon icon={faUsers}/>
+                    <FontAwesomeIcon icon={faUsers} />
                 </div>
                 <div>
                     <span>Users</span>
