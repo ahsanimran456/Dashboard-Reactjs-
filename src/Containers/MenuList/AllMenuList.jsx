@@ -34,7 +34,7 @@ function AllMenulist() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5051/getusers`)
+        axios.get(`http://localhost:5051/getproducts`)
             .then((res) => {
                 console.log(res.data)
                 setproducts(res.data)
@@ -62,7 +62,7 @@ function AllMenulist() {
                     <div className="allproducts">
                         {products.map((items, i) => {
                             return (
-                                <div className="allproductscards" style={{marginTop:15}}>
+                                <div className="allproductscards" style={{marginTop:15}} key={i}>
                                     <Card
                                         style={{
                                             width: 300,
