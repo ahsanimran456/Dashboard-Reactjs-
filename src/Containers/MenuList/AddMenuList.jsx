@@ -42,7 +42,7 @@ function AddMenulist() {
             .then((res) => {
                 console.log(res.data.message)
                 if (res.data.message == 'Product Added Successfully') {
-                    toast.success("Product Add Successfilly !")
+                    toast.success("Product Add Successfully !")
                     setproductname("");
                     // setcategory("");
                     setprice("");
@@ -78,11 +78,11 @@ function AddMenulist() {
                 </div>
                 <div className="main-section-Addmenu">
                     <ToastContainer
-                     position="bottom-right"
-                     theme="colored"
-                     autoClose={3000}
-                    
-                      />
+                        position="bottom-right"
+                        theme="colored"
+                        autoClose={3000}
+
+                    />
                     <div style={{ marginTop: 10 }}>
                         <span style={{ color: "#7E37D8", cursor: "pointer" }} onChange={gohome}>
                             <FontAwesomeIcon icon={faHouse} />
@@ -106,9 +106,12 @@ function AddMenulist() {
                             </Form.Item>
                             <Form.Item label="Category">
                                 <select value={category} onChange={(e) => setcategory(e.target.value)} className="customdrop" >
-                                    <option>Category 1</option>
-                                    <option >Category 2</option>
-                                    <option >Category 3</option>
+                                    <option>Burgers Category 1</option>
+                                    <option >Pizza's Category 2</option>
+                                    <option >Noodles Category 3</option>
+                                    <option >Ice Cream Category 4</option>
+                                    <option >Smoothies & Mocktails Category 5</option>
+                                    <option >Dessert Category 6</option>
                                 </select>
                             </Form.Item>
                             <Form.Item label="Price">
