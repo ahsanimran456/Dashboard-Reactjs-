@@ -12,7 +12,9 @@ import {
     ExclamationCircleFilled,
     EditOutlined,
     DeleteOutlined,
-    EllipsisOutlined
+    EllipsisOutlined,
+    CheckCircleOutlined,
+    CloseCircleOutlined
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { Avatar, Input, } from 'antd';
@@ -33,6 +35,7 @@ function AllMenulist() {
     const [products, setproducts] = useState();
     const [ProductTitle, setProductTitle] = useState();
     const [ProductDescription, setProductDescription] = useState();
+    const [ProductCategory, setProductCategory] = useState();
     const [ProductPrice, setProductPrice] = useState();
     const [edit, setedit] = useState(false);
     const [EditingProduct, setEditingProduct] = useState({});
@@ -58,7 +61,7 @@ function AllMenulist() {
         confirm({
             title: 'Do you want to delete these item?',
             icon: <ExclamationCircleFilled />,
-            content: 'When clicked the OK button, this dialog will be closed after 1 second',
+            content: 'When clicked the OK button,item will be deleted',
             onOk() {
                 return new Promise((resolve, reject) => {
                     console.log(id)
@@ -84,19 +87,30 @@ function AllMenulist() {
 
     const Changeitems = (product) => {
         setedit(true)
-        console.log("edit pro", product)
         setEditingProduct(product)
-        // console.log("mil raha hy ",EditingProduct)
-
         setProductTitle(product.ProductName)
         setProductDescription(product.Description)
         setProductPrice(product.Price)
+        setProductCategory(product.Category)
     }
 
-    const Cancel =()=>{
+    const Cancel = () => {
         setedit(false)
     }
-
+    const editProduct = (productID) => {
+        axios.put(`http://localhost:5051/product/${productID}`, {
+            ProductName: ProductTitle,
+            Category: ProductCategory,
+            Price: ProductPrice,
+            Description: ProductDescription,
+        })
+            .then((res) => {
+                toast.success("Product Edit Successfully !")
+                setdatahandler(!datahandler)
+                setedit(false)
+            })
+            .catch((err) => console.log("errr", err))
+    }
     return (
         <>
             <div className="Header-app">
@@ -124,39 +138,48 @@ function AllMenulist() {
                         {products ? products.map((items, i) => {
                             return (
                                 <div className="allproductscards" style={{ marginTop: 15 }} key={i}>
-                                    {/* <Card
-                                        style={{
-                                            width: 300,
-                                        }}
-                                        cover={
-                                            <img
-                                                alt="example"
-                                                src={require("../../Assests/images/burgers.jpg")}
-                                            />
-                                        }
-                                        actions={[
-                                            <DeleteOutlined key="delete" style={{ fontSize: 20 }} onClick={() => showPromiseConfirm(items._id)} />,
-                                            <EditOutlined key="edit" style={{ fontSize: 20 }} />,
-                                            // <EllipsisOutlined key="ellipsis" style={{fontSize:20}} />,
-                                            <div>{items.Price} RS</div>
-                                        ]}
-                                    >
-                                        <Meta
-                                            title={items.ProductName} 
-                                            description={items.Description}
-                                            
-                                        />
-                                    </Card> */}
                                     <Card style={{ width: '18rem' }}>
                                         <Card.Img variant="top" src={require("../../Assests/images/burgers.jpg")} />
                                         <Card.Body>
-                                            <Card.Title>{(edit && items._id === EditingProduct._id) ? <input type="text" value={ProductTitle} /> : items.ProductName}</Card.Title>
-                                            <Card.Text>
-                                                {items.Description}
+                                            <Card.Title>{(edit && items._id === EditingProduct._id) ? <input className="editinput1" type="text" value={ProductTitle} onChange={(e) => setProductTitle(e.target.value)} /> : items.ProductName}</Card.Title>
+                                            <Card.Text className="card-discription">
+                                                {(edit && items._id === EditingProduct._id) ?
+                                                    <input className="editinput1" type='textarea' value={ProductDescription} onChange={(e) => setProductDescription(e.target.value)} />
+                                                    :
+                                                    <span style={{ fontWeight: 600, fontStyle: "italic" }}>
+                                                        {items.Description}
+                                                    </span>
+                                                }
+                                                {(edit && items._id === EditingProduct._id) ? <input type="number" value={ProductPrice} className="editinput2" />
+                                                    :
+                                                    <div>
+                                                        <span style={{ fontWeight: 600 }}>
+                                                            {items.Price} Rs
+                                                        </span>
+                                                    </div>
+                                                }
+
+
                                             </Card.Text>
                                             <Card.Text>
-                                                {edit && items._id === EditingProduct._id ? <button>Done</button> : <EditOutlined key="edit" style={{ fontSize: 20 }} onClick={() => Changeitems(items)} />}
-                                                {edit && items._id === EditingProduct._id ? <button onClick={Cancel}>Cancel</button> : <DeleteOutlined key="delete" style={{ fontSize: 20 }} onClick={() => showPromiseConfirm(items._id)} />}
+                                                {edit && items._id === EditingProduct._id ?
+                                                    <CheckCircleOutlined onClick={() => editProduct(items._id)} style={{ fontSize: 25, }} />
+                                                    :
+                                                    <EditOutlined key="edit" style={{ fontSize: 25 }} onClick={() => Changeitems(items)} />}
+                                                {edit && items._id === EditingProduct._id ?
+                                                    <>
+                                                        <CloseCircleOutlined onClick={Cancel} style={{ fontSize: 25, margin: "0 10px" }} />
+                                                        <select value={ProductCategory} onChange={(e) => setProductCategory(e.target.value)} className="customdrop" >
+                                                            <option>Burgers Category 1</option>
+                                                            <option >Pizza's Category 2</option>
+                                                            <option >Noodles Category 3</option>
+                                                            <option >Ice Cream Category 4</option>
+                                                            <option >Smoothies & Mocktails Category 5</option>
+                                                            <option >Dessert Category 6</option>
+                                                        </select>
+                                                    </>
+                                                    :
+                                                    <DeleteOutlined key="delete" style={{ fontSize: 25, margin: "0 10px" }} onClick={() => showPromiseConfirm(items._id)} />}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

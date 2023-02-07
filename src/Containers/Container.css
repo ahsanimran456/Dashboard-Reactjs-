@@ -66,6 +66,10 @@
 .addproduct-btn{
     margin-left: 20px !important
 }
+.card-discription{
+    display: flex;
+    width: 100%;
+}
 
 
 .allproducts{
@@ -87,4 +91,34 @@
     border-color: #d9d9d9;
     border-radius: 6px;
     transition: all 0.2s;
+}
+
+
+
+/* get menu list ............. */
+
+
+.card-discription{
+    display: flex !important;
+    justify-content: space-between !important;
+}
+p.card-text {
+    display: flex !important;
+}
+
+.editinput1{
+    width: 70% !important;
+    border-top:none !important ;
+    border-left:none !important ;
+    border-right: none !important;
+    background-color: transparent;
+}
+.editinput1:focus {
+  outline: none !important;
+}
+.editinput2:focus{
+    outline: none !important;
+}
+.editinput2{
+    width: 20% !important;
 }

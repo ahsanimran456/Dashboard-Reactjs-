@@ -34,7 +34,7 @@ function AddMenulist() {
 
     const addproduct = () => {
         axios.post(`http://localhost:5051/addproducts`, {
-            ProductName: productname,
+            ProductName: productname.trim(),
             Category: category,
             Price: price,
             Description: description,
