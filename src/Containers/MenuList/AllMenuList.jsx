@@ -45,7 +45,7 @@ function AllMenulist() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5051/getproducts`)
+        axios.get(`https://drab-erin-bighorn-sheep-ring.cyclic.app/getproducts`)
             .then((res) => {
                 console.log(res.data)
                 if (res.data.length == 0) {
